@@ -2,7 +2,7 @@
 set -e -x
 
 # Install swig
-yum install -y swig
+yum install -y swig2
 
 # Compile wheels
 #cd io
