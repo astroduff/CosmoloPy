@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e -x
 
+# Install swig
+yum install -y swig
+
 # Compile wheels
 for PYBIN in /opt/python/*/bin; do
     "${PYBIN}/pip" install -r /io/requirements.txt
