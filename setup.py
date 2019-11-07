@@ -9,7 +9,9 @@ from setuptools import setup, find_packages, Extension
 import os
 #import nose
 
-eh_dir = os.path.join('.','cosmolopy','EH')
+dir_path = os.path.dirpath(__file__)
+
+eh_dir = os.path.join(dirpath,'cosmolopy','EH')
 
 def generate_swig():
     cwd = os.path.abspath(os.path.dirname(__file__))
@@ -26,11 +28,6 @@ generate_swig()
 ### I used to let distutils run swig for me on power.i to create
 ### power_wrap.c and power.py, but that stopped working for some
 ### reason.
-# Stuff used to build the cosmolopy.EH._power module:
-#power_module = Extension('cosmolopy.EH._power',
-#                         sources=[os.path.join(eh_dir, 'power.i'),
-#                                  os.path.join(eh_dir, 'power.c')]
-#                         )
 power_module = Extension('cosmolopy.EH._power',
                          sources=[os.path.join(eh_dir, 'power_wrap.c'),
                                   os.path.join(eh_dir, 'power.c')])
@@ -40,11 +37,11 @@ tf_fit_module = Extension('cosmolopy.EH._tf_fit',
                                   os.path.join(eh_dir, 'tf_fit.c')])
 
 # Get the requirements list
-with open('requirements.txt', 'r') as f:
+with open(os.path.join(dir_path, 'requirements.txt'), 'r') as f:
     requirements = f.read().splitlines()
 
 # Read the __version__.py file
-with open('cosmolopy/__version__.py', 'r') as f:
+with open(os.path.join(dir_path, 'cosmolopy/__version__.py'), 'r') as f:
     vf = f.read()
 
 # Obtain version from read-in __version__.py file
