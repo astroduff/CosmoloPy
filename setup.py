@@ -9,7 +9,7 @@ from setuptools import setup, find_packages, Extension
 import os
 #import nose
 
-dir_path = os.path.dirname(__file__)
+dirpath = os.path.dirname(__file__)
 
 eh_dir = os.path.join(dirpath,'cosmolopy','EH')
 
@@ -37,11 +37,11 @@ tf_fit_module = Extension('cosmolopy.EH._tf_fit',
                                   os.path.join(eh_dir, 'tf_fit.c')])
 
 # Get the requirements list
-with open(os.path.join(dir_path, 'requirements.txt'), 'r') as f:
+with open(os.path.join(dirpath, 'requirements.txt'), 'r') as f:
     requirements = f.read().splitlines()
 
 # Read the __version__.py file
-with open(os.path.join(dir_path, 'cosmolopy/__version__.py'), 'r') as f:
+with open(os.path.join(dirpath, 'cosmolopy/__version__.py'), 'r') as f:
     vf = f.read()
 
 # Obtain version from read-in __version__.py file
