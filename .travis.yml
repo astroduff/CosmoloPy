@@ -9,55 +9,18 @@ env:
     - secure: "MDTcgtmECiD4rZIyDukZV2bT8Vtp/L4lfRGexvDC+hXl9V3U+8lbiginSI8becj+KkZVfYfkyfKIwJuNpcAbtB0D+B4T8l+gz05AonthNhjKfYi2gkxjJQe9KUtCcAS8jvoOuftLXfNnK2KS/fDewgQmEUouaz6ARwU4+juHVyzWyIa57HnJmcqFaGlK1JU11L3vEDkrFgLji9sZ+FjeqNkJ04ozqQhAt9SbxM5ZOCWvj34qfnmKlGl9EQNSvsktM37tNtPRGYycA6kukfsCbPtrKDnqN4xk42AH98MQHgE09BRi5bKvzzOSUk+/0ZsHvWWdzDQUF2gI0ot7wOwxU5Ox3IEzXoLzayMN7gUCYYQDF1iis4dvQrT9POGjXfD9NOX/i+1KSZcmaxHxg30WRqJfwzr08d4jd56zW4nWzjNgTJ84/kFNODWp72qXe1HngjflkDMs8waFe+Qrcq0P+oi4ale6BQORuoHTP+q8jTD+LGQyYqcW+XmLXSby+YQ1HdAZ0wyUlZr2Yx1P/N+toG2juXmiMzf1+Po4U+Ea3eOGGBC2Cqb6de3Z83+yDU183kRPXToYGHhsphLDTU8Y28ik3UpFa77mzNLTElJ0go1k1rdlbPnjT6/Z2x+iJZibkX+G2cBaOyPqOeOKmOpMXOhcQNBQYazfmWc9/imGNXA="
     - TWINE_REPOSITORY_URL=https://test.pypi.org/legacy/
 
-jobs:
+matrix:
   include:
-    - os: osx
-      python: 2
-      language: generic
-    - os: osx
-      python: 3
-      language: generic
-      env: PY=3
-    - python: 2.7
-    - python: 3.5
-    - python: 3.5-dev
-    - python: 3.6
-    - python: 3.6-dev
-    - python: 3.7
-    - python: 3.7-dev
-    - python: 3.8-dev
-  allow_failures:
-    - python: 3.8-dev
-
-before_install:
-  - |
-    if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-      sudo apt-get update -q
-      sudo apt-get install -y swig
-    else
-      brew update
-      brew cleanup
-      brew install swig
-    fi
-  - python$PY -m pip install --upgrade pip setuptools wheel twine
+    - sudo: required
+      services:
+        - docker
+      env: DOCKER_IMAGE=quay.io/pypa/manylinux1_x86_64
+           PLAT=manylinux1_x86_64
 
 install:
-  - python$PY setup.py build_ext --inplace
-  - python$PY setup.py sdist bdist_wheel
-  - twine check dist/*
+  - docker pull $DOCKER_IMAGE
 
 script:
-  - echo "Hello world"
+  - docker run --rm -e PLAT=$PLAT -v `pwd`:/io $DOCKER_IMAGE $PRE_CMD /io/build-wheels.sh
+  - ls wheelhouse/
 
-after_success:
-  - python$PY -m pip install auditwheel
-  - auditwheel repair dist/*.whl
-  - twine upload dist/* --skip-existing
-
-#notifications:
-#  email:
-#    recipients:
-#      - mail@alanrduffy.com
-#    on_success: change
-#    on_failure: always
-    
