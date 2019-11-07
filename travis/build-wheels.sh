@@ -3,6 +3,8 @@ set -e -x
 
 # Install swig
 yum localinstall -y http://springdale.math.ias.edu/data/puias/computational/6/x86_64//swig3012-3.0.12-3.sdl6.x86_64.rpm
+yum list installed
+yum info swig3012
 printf '%s\n' ${PATH//:/\/* } | grep swig
 ln $(which swig3012) swig --symbolic
 
