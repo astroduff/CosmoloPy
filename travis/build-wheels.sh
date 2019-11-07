@@ -3,6 +3,12 @@ set -e -x
 
 # Install swig
 yum localinstall -y http://springdale.math.ias.edu/data/puias/computational/6/x86_64//swig3012-3.0.12-3.sdl6.x86_64.rpm
+which swig
+which swig3
+which swig3.0
+which swig3012
+which swig3012(x86-64)
+which swig3012.x86_64
 ln $(which swig3012) swig --symbolic
 
 # Compile wheels
