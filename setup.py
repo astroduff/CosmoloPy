@@ -3,6 +3,7 @@
 
 from __future__ import absolute_import, division, print_function
 
+import re
 import subprocess
 from setuptools import setup, find_packages, Extension
 import os
@@ -38,16 +39,26 @@ tf_fit_module = Extension('cosmolopy.EH._tf_fit',
                          sources=[os.path.join(eh_dir, 'tf_fit_wrap.c'),
                                   os.path.join(eh_dir, 'tf_fit.c')])
 
-packages = find_packages()
+# Get the requirements list
+with open('requirements.txt', 'r') as f:
+    requirements = f.read().splitlines()
+
+# Read the __version__.py file
+with open('cosmolopy/__version__.py', 'r') as f:
+    vf = f.read()
+
+# Obtain version from read-in __version__.py file
+version = re.search(r"^_*version_* = ['\"]([^'\"]*)['\"]", vf, re.M).group(1)
+
 setup(
     name = "cosmolopy",
-    version = "0.4rc2",
-    packages = packages,
+    version = version,
+    packages = find_packages(),
 #    package_data = {
 #        # If any package contains *.so files, include them:
 #        '': ['*.so'],
 #        },
-    install_requires = ['numpy', 'scipy',],
+    install_requires = requirements,
 
     ext_modules = [power_module, tf_fit_module],
 
