@@ -1,8 +1,3 @@
-language: python
-dist: xenial
-sudo: true
-os: linux
-
 env:
   global:
     - TWINE_USERNAME=1313e
