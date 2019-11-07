@@ -2,8 +2,8 @@
 set -e -x
 
 # Install swig
-sudo apt-get update -q
-sudo apt-get install -y swig
+yum install -y swig
+yum update -y swig
 
 # Compile wheels
 cd io
