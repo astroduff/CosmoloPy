@@ -6,7 +6,7 @@ yum install -y swig
 
 # Compile wheels
 cd io
-for PYBIN in ../opt/python/*[23][5678]*/bin; do
+for PYBIN in ../opt/python/*[34][5678]*/bin; do
     "${PYBIN}/pip" install -r requirements.txt
     "${PYBIN}/python" setup.py build_ext --inplace
     "${PYBIN}/pip" wheel . -w ../wheelhouse/
