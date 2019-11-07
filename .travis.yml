@@ -1,3 +1,7 @@
+os: linux
+dist: xenial
+sudo: true
+
 env:
   global:
     - TWINE_USERNAME=1313e
