@@ -5,11 +5,13 @@ set -e -x
 yum install -y swig
 
 # Compile wheels
-for PYBIN in /opt/python/*[23][5678]*/bin; do
-    "${PYBIN}/pip" install -r /io/requirements.txt
-    "${PYBIN}/python" /io/setup.py build_ext --inplace
-    "${PYBIN}/pip" wheel /io/ -w wheelhouse/
+cd io
+for PYBIN in ../opt/python/*[23][5678]*/bin; do
+    "${PYBIN}/pip" install -r requirements.txt
+    "${PYBIN}/python" setup.py build_ext --inplace
+    "${PYBIN}/pip" wheel . -w ../wheelhouse/
 done
+cd ..
 
 # Bundle external shared libraries into the wheels
 for whl in wheelhouse/cosmolopy*.whl; do

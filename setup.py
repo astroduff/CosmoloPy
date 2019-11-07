@@ -9,12 +9,12 @@ from setuptools import setup, find_packages, Extension
 import os
 #import nose
 
-dirpath = os.path.dirname(__file__)
+dirpath = os.path.abspath(os.path.dirname(__file__))
 
 eh_dir = os.path.join(dirpath,'cosmolopy','EH')
 
 def generate_swig():
-    cwd = os.path.abspath(os.path.dirname(__file__))
+    cwd = dirpath
     print("Swigging sources")
     for d in ('power','tf_fit'):
         filename = os.path.join(cwd, 'cosmolopy', 'EH', d+'.i')        
