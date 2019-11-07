@@ -9,7 +9,7 @@ from setuptools import setup, find_packages, Extension
 import os
 #import nose
 
-dir_path = os.path.dirpath(__file__)
+dir_path = os.path.dirname(__file__)
 
 eh_dir = os.path.join(dirpath,'cosmolopy','EH')
 
