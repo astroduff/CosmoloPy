@@ -2,9 +2,8 @@
 set -e -x
 
 # Install swig
-yum install -y wget
-wget http://springdale.math.ias.edu/data/puias/computational/6/x86_64//swig2-2.0.12-4.sdl6.x86_64.rpm
-yum localinstall -y swig2-2.0.12-4.sdl6.x86_64.rpm
+yum localinstall -y http://springdale.math.ias.edu/data/puias/computational/6/x86_64//swig2-devel-2.0.12-4.sdl6.noarch.rpm
+yum localinstall -y http://springdale.math.ias.edu/data/puias/computational/6/x86_64//swig2-2.0.12-4.sdl6.x86_64.rpm
 
 # Compile wheels
 #cd io
