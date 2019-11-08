@@ -12,21 +12,17 @@ env:
 matrix:
   include:
     - os: osx
-      osx_image: xcode6.4
-      python: 2.7
       language: generic
+      env: PYTHON=2.7
     - os: osx
-      python: 3.5
       language: generic
-      env: PY=3
+      env: PYTHON=3.5 PY=3
     - os: osx
-      python: 3.6
       language: generic
-      env: PY=3
+      env: PYTHON=3.6 PY=3
     - os: osx
-      python: 3.7
       language: generic
-      env: PY=3
+      env: PYTHON=3.7 PY=3
     - sudo: required
       services:
         - docker
@@ -40,6 +36,7 @@ install:
     else
       brew update
       brew cleanup
+      brew install python@$PYTHON
       brew install swig
       python$PY -m pip install --upgrade pip setuptools wheel
       pip$PY install -r requirements.txt
