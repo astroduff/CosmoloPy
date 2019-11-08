@@ -2,17 +2,19 @@
 set -e -x
 
 # Install swig
-yum install -y swig
-yum info swig
-echo $(which swig)
+#yum install -y swig
+#yum info swig
+#echo $(which swig)
 yum localinstall -y http://springdale.math.ias.edu/data/puias/computational/6/x86_64//swig3012-3.0.12-3.sdl6.x86_64.rpm
 yum list installed
 yum info swig3012
-rpm -ql swig
+#rpm -ql swig
 rpm -ql swig3012
-echo $(which swig3012.x86_64)
-printf '%s\n' ${PATH//:/\/* } | grep swig
-ln $(which swig3012) swig --symbolic
+#echo $(which swig3012.x86_64)
+#printf '%s\n' ${PATH//:/\/* } | grep swig
+ln /usr/local/swig/3.0.12/bin/swig /usr/bin/swig --symbolic
+ln /usr/local/swig/3.0.12/bin/ccache-swig /usr/bin/ccache-swig --symbolic
+#ln $(which swig3012) swig --symbolic
 
 # Compile wheels
 #cd io
