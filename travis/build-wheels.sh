@@ -2,7 +2,7 @@
 set -e -x
 
 # Install swig
-yum install swig
+yum install -y swig
 yum info swig
 echo $(which swig)
 yum localinstall -y http://springdale.math.ias.edu/data/puias/computational/6/x86_64//swig3012-3.0.12-3.sdl6.x86_64.rpm
