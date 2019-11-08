@@ -11,6 +11,21 @@ env:
 
 matrix:
   include:
+    - os: osx
+      python: 2.7
+      language: generic
+    - os: osx
+      python: 3.5
+      language: generic
+      env: PY=3
+    - os: osx
+      python: 3.6
+      language: generic
+      env: PY=3
+    - os: osx
+      python: 3.7
+      language: generic
+      env: PY=3
     - sudo: required
       services:
         - docker
@@ -18,15 +33,29 @@ matrix:
            PLAT=manylinux2010_x86_64
 
 install:
-  - docker pull $DOCKER_IMAGE
+  - |
+    if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+      docker pull $DOCKER_IMAGE
+    else
+      brew update
+      brew cleanup
+      brew install swig
+      python$PY -m pip install --upgrade pip setuptools wheel
+      pip$PY install -r requirements.txt
+    fi
 
 script:
-  - docker run --rm -e PLAT=$PLAT -v `pwd`:/io $DOCKER_IMAGE $PRE_CMD /io/travis/build-wheels.sh
+  - |
+    if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+      docker run --rm -e PLAT=$PLAT -v `pwd`:/io $DOCKER_IMAGE $PRE_CMD /io/travis/build-wheels.sh
+    else
+      pip$PY wheel . -w wheelhouse
+      pip$PY install cosmolopy --no-index -f wheelhouse
+      python$PY -c "import cosmolopy; import cosmolopy.EH.power"
+    fi
   - ls wheelhouse/
 
 after_success:
-  - pip install twine
-  - python setup.py sdist
+  - pip$PY install twine
   - twine upload --skip-existing wheelhouse/*
-  - twine upload --skip-existing dist/*
 
