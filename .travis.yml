@@ -26,4 +26,7 @@ script:
 
 after_success:
   - pip install twine
+  - python setup.py sdist
+  - twine upload --skip-existing wheelhouse/*
+  - twine upload --skip-existing dist/*
 
