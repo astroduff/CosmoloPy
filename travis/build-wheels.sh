@@ -8,8 +8,7 @@ echo $(which swig)
 yum localinstall -y http://springdale.math.ias.edu/data/puias/computational/6/x86_64//swig3012-3.0.12-3.sdl6.x86_64.rpm
 yum list installed
 yum info swig3012
-yum install -y yum-utils
-repoquery --list swig3012
+rpm -ql swig
 rpm -ql swig3012
 echo $(which swig3012.x86_64)
 printf '%s\n' ${PATH//:/\/* } | grep swig
