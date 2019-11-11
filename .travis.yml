@@ -37,7 +37,9 @@ install:
       brew update
       brew cleanup
       brew install pyenv
+      brew upgrade pyenv
       brew install swig
+      pyenv install --list
       pyenv install $PYTHON
       pyenv local $PYTHON
       python -m pip install --upgrade pip setuptools wheel
