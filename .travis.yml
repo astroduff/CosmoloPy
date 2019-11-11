@@ -40,18 +40,10 @@ install:
       brew upgrade pyenv
       eval "$(pyenv init -)"
       brew install swig
-      pyenv install --list
       pyenv install $PYTHON
       pyenv global $PYTHON
-      python --version
-      python3 --version
-      pyenv which python$PY
-      pyenv which pip$PY
-      echo $PATH
-      python$PY --version
-      python$PY -c "print('test')"
-      python -m pip install --upgrade pip setuptools wheel
-      pip install -r requirements.txt
+      python$PY -m pip install --upgrade pip setuptools wheel
+      pip$PY install -r requirements.txt
     fi
 
 script:
@@ -59,16 +51,16 @@ script:
     if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
       docker run --rm -e PLAT=$PLAT -v `pwd`:/io $DOCKER_IMAGE $PRE_CMD /io/travis/build-wheels.sh
     else
-      python setup.py sdist -d wheelhouse
-      pip wheel . -w wheelhouse
+      python$PY setup.py sdist -d wheelhouse
+      pip$PY wheel . -w wheelhouse
       cd wheelhouse
-      pip install cosmolopy --no-index -f .
-      python -c "import cosmolopy; import cosmolopy.EH.power"
+      pip$PY install cosmolopy --no-index -f .
+      python$PY -c "import cosmolopy; import cosmolopy.EH.power"
       cd ..
     fi
   - ls wheelhouse/
 
 after_success:
-  - pip install twine
+  - pip$PY install twine
   - twine upload --skip-existing wheelhouse/cosmolopy*
 
