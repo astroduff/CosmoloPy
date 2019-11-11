@@ -44,6 +44,7 @@ install:
       pyenv global $PYTHON
       python --version
       python3 --version
+      python$PYTHON --version
       python -m pip install --upgrade pip setuptools wheel
       pip install -r requirements.txt
     fi
