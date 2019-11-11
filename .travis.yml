@@ -38,6 +38,7 @@ install:
       brew cleanup
       brew install pyenv
       brew upgrade pyenv
+      eval "$(pyenv init -)"
       brew install swig
       pyenv install --list
       pyenv install $PYTHON
