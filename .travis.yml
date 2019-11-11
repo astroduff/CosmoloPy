@@ -36,6 +36,7 @@ install:
     else
       brew update
       brew cleanup
+      brew uninstall python
       brew install python@$PYTHON
       brew install swig
       python$PY -m pip install --upgrade pip setuptools wheel
