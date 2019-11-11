@@ -41,7 +41,9 @@ install:
       brew install swig
       pyenv install --list
       pyenv install $PYTHON
-      pyenv local $PYTHON
+      pyenv global $PYTHON
+      python --version
+      python3 --version
       python -m pip install --upgrade pip setuptools wheel
       pip install -r requirements.txt
     fi
