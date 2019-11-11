@@ -19,7 +19,7 @@ matrix:
       env: PYTHON=3.5.4 PY=3
     - os: osx
       language: generic
-      env: PYTHON=3.6.5 PY=3
+      env: PYTHON=3.6.5_1 PY=3
     - os: osx
       language: generic
       env: PYTHON=3.7.5 PY=3
@@ -37,7 +37,7 @@ install:
       brew update
       brew cleanup
       brew uninstall --ignore-dependencies python
-      brew install python@$PYTHON
+      brew install python $PYTHON
       brew install swig
       python$PY -m pip install --upgrade pip setuptools wheel
       pip$PY install -r requirements.txt
